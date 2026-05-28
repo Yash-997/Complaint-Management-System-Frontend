@@ -297,3 +297,47 @@ h1 {
 
   font-size: 15px;
 }
+.priority-high {
+
+  background: #fee2e2;
+
+  color: #dc2626;
+
+  padding: 4px 10px;
+
+  border-radius: 20px;
+
+  font-size: 12px;
+
+  font-weight: 600;
+}
+
+.priority-medium {
+
+  background: #fef3c7;
+
+  color: #d97706;
+
+  padding: 4px 10px;
+
+  border-radius: 20px;
+
+  font-size: 12px;
+
+  font-weight: 600;
+}
+
+.priority-low {
+
+  background: #dcfce7;
+
+  color: #16a34a;
+
+  padding: 4px 10px;
+
+  border-radius: 20px;
+
+  font-size: 12px;
+
+  font-weight: 600;
+}

@@ -144,14 +144,30 @@ function AdminDashboard() {
 
 </span>
 
-              <p>
+             <p>
 
-                <strong>Priority:</strong>
-                {" "}
-                {c.priority}
+  <strong>Priority:</strong>
 
-              </p>
+</p>
 
+<span
+  className={
+
+    c.priority === "HIGH"
+
+      ? "priority-high"
+
+      : c.priority === "MEDIUM"
+
+      ? "priority-medium"
+
+      : "priority-low"
+  }
+>
+
+  {c.priority}
+
+</span>
               <p>
 
                 <strong>User:</strong>
