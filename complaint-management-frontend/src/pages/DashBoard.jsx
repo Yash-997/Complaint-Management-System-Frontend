@@ -9,7 +9,7 @@ import {
 
 import api from "../services/api";
 
-function Dashboard() {
+function DashBoard() {
 
   const [complaints, setComplaints] =
     useState([]);
@@ -300,4 +300,4 @@ const [editPriority, setEditPriority] =
   );
 }
 
-export default Dashboard;
+export default DashBoard;

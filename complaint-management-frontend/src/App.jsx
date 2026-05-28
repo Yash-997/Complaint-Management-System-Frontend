@@ -8,7 +8,7 @@ import Login from "./pages/Login";
 
 import Register from "./pages/Register";
 
-import Dashboard from "./pages/Dashboard";
+import Dashboard from "./pages/DashBoard";
 
 import CreateComplaint from "./pages/CreateComplaint";
 
