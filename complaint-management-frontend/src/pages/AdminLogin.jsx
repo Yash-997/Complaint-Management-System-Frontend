@@ -21,7 +21,7 @@ function AdminLogin() {
     try {
 
       const response =
-        await api.post("/api/users/login", {
+        await api.post("/users/login", {
 
           email,
           password
