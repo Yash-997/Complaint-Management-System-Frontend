@@ -22,7 +22,7 @@ function Login() {
     try {
 
       const response =
-        await api.post("/users/login", {
+        await api.post("/api/users/login", {
 
           email,
           password
