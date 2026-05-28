@@ -38,7 +38,7 @@ const [editPriority, setEditPriority] =
     try {
 
       const response =
-        await api.get("/complaints/my");
+        await api.get("/api/complaints/my");
 
       setComplaints(response.data);
 
@@ -65,7 +65,7 @@ const [editPriority, setEditPriority] =
     try {
 
       await api.delete(
-        `/complaints/${id}`
+        `/api/complaints/${id}`
       );
 
       fetchComplaints();
@@ -99,7 +99,7 @@ const [editPriority, setEditPriority] =
 
     await api.put(
 
-      `/complaints/${id}`,
+      `/api/complaints/${id}`,
 
       {
         title: editTitle,

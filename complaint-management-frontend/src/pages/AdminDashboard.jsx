@@ -35,7 +35,7 @@ function AdminDashboard() {
     try {
 
       const response =
-        await api.get("/admin/complaints");
+        await api.get("/api/admin/complaints");
 
       console.log(response.data);
 
@@ -58,7 +58,7 @@ function AdminDashboard() {
 
       await api.put(
 
-        `/admin/complaints/${id}/status?status=${status}`
+        `/api/admin/complaints/${id}/status?status=${status}`
       );
 
       fetchComplaints();

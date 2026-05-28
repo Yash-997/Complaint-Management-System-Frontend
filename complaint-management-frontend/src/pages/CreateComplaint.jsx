@@ -24,7 +24,7 @@ function CreateComplaint() {
 
     try {
 
-      await api.post("/complaints", {
+      await api.post("/api/complaints", {
 
         title,
         description,
