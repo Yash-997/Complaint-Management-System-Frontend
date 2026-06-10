@@ -14,6 +14,18 @@ function AdminDashboard() {
   const [complaints, setComplaints] =
     useState([]);
 
+  const [staffList, setStaffList] =
+    useState([]);
+
+  const [selectedStaff, setSelectedStaff] =
+    useState({});
+
+  const [dashboardStats, setDashboardStats] =
+    useState(null);
+
+  const [statusFilter, setStatusFilter] =
+    useState("ALL");
+
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -27,6 +39,10 @@ function AdminDashboard() {
     }
 
     fetchComplaints();
+
+    fetchStaff();
+
+    fetchDashboardStats();
 
   }, []);
 
@@ -49,6 +65,36 @@ function AdminDashboard() {
     }
   };
 
+  const fetchStaff = async () => {
+
+    try {
+
+      const response =
+        await api.get("/api/admin/staff");
+
+      setStaffList(response.data);
+
+    } catch (error) {
+
+      console.log(error);
+    }
+  };
+
+  const fetchDashboardStats = async () => {
+
+    try {
+
+      const response =
+        await api.get("/api/admin/dashboard");
+
+      setDashboardStats(response.data);
+
+    } catch (error) {
+
+      console.log(error);
+    }
+  };
+
   const updateStatus = async (
     id,
     status
@@ -63,11 +109,40 @@ function AdminDashboard() {
 
       fetchComplaints();
 
+      fetchDashboardStats();
+
     } catch (error) {
 
       console.log(error);
 
       alert("Status update failed");
+    }
+  };
+
+  const assignStaff = async (complaintId) => {
+
+    const staffId = selectedStaff[complaintId];
+
+    if (!staffId) {
+
+      alert("Please select a staff member");
+
+      return;
+    }
+
+    try {
+
+      await api.put(
+        `/api/admin/complaints/${complaintId}/assign/${staffId}`
+      );
+
+      fetchComplaints();
+
+    } catch (error) {
+
+      console.log(error);
+
+      alert("Staff assignment failed");
     }
   };
 
@@ -86,6 +161,13 @@ function AdminDashboard() {
   }
 };
 
+  const filteredComplaints =
+    statusFilter === "ALL"
+      ? complaints
+      : complaints.filter(
+          (c) => c.status === statusFilter
+        );
+
   return (
 
     <div className="container">
@@ -100,15 +182,104 @@ function AdminDashboard() {
 
       </div>
 
+      {dashboardStats && (
+
+        <div className="summary-cards">
+
+          <div className="card">
+
+            <h2>
+              {dashboardStats.totalComplaints}
+            </h2>
+
+            <p>Total Complaints</p>
+
+          </div>
+
+          <div className="card">
+
+            <h2>
+              {dashboardStats.openComplaints}
+            </h2>
+
+            <p>Open</p>
+
+          </div>
+
+          <div className="card">
+
+            <h2>
+              {dashboardStats.inProgressComplaints}
+            </h2>
+
+            <p>In Progress</p>
+
+          </div>
+
+          <div className="card">
+
+            <h2>
+              {dashboardStats.resolvedComplaints}
+            </h2>
+
+            <p>Resolved</p>
+
+          </div>
+
+          <div className="card">
+
+            <h2>
+              {dashboardStats.closedComplaints}
+            </h2>
+
+            <p>Closed</p>
+
+          </div>
+
+        </div>
+
+      )}
+
+      <div className="filter-section">
+
+        <label>Filter By Status:</label>
+
+        <select
+          value={statusFilter}
+          onChange={(e) =>
+            setStatusFilter(e.target.value)
+          }
+        >
+
+          <option value="ALL">ALL</option>
+
+          <option value="OPEN">OPEN</option>
+
+          <option value="IN_PROGRESS">
+            IN_PROGRESS
+          </option>
+
+          <option value="RESOLVED">
+            RESOLVED
+          </option>
+
+          <option value="CLOSED">
+            CLOSED
+          </option>
+
+        </select>
+
+      </div>
+
       {
 
-        complaints.length === 0 ?
+        filteredComplaints.length === 0 ?
 
           <h2>No Complaints Found</h2>
 
           :
 
-          complaints.map((c) => (
+          filteredComplaints.map((c) => (
 
             <div
               key={c.id}
@@ -135,6 +306,10 @@ function AdminDashboard() {
       : c.status === "IN_PROGRESS"
 
       ? "status-progress"
+
+      : c.status === "CLOSED"
+
+      ? "status-closed"
 
       : "status-resolved"
   }
@@ -196,6 +371,121 @@ function AdminDashboard() {
 
               </p>
 
+              {c.assignedStaff && (
+
+                <p
+                  style={{
+                    marginTop: "10px"
+                  }}
+                >
+
+                  <strong>Assigned Staff:</strong>
+                  {" "}
+                  {c.assignedStaff.name}
+                  {" "}
+                  ({c.assignedStaff.email})
+
+                </p>
+
+              )}
+
+              {c.resolutionRemarks && (
+
+                <p
+                  style={{
+                    marginTop: "10px"
+                  }}
+                >
+
+                  <strong>Resolution Remarks:</strong>
+                  {" "}
+                  {c.resolutionRemarks}
+
+                </p>
+
+              )}
+
+              {c.rating && (
+
+                <p
+                  style={{
+                    marginTop: "10px"
+                  }}
+                >
+
+                  <strong>Rating:</strong>
+                  {" "}
+                  {c.rating} / 5
+
+                </p>
+
+              )}
+
+              {c.feedback && (
+
+                <p
+                  style={{
+                    marginTop: "10px"
+                  }}
+                >
+
+                  <strong>Feedback:</strong>
+                  {" "}
+                  {c.feedback}
+
+                </p>
+
+              )}
+
+              <div
+                style={{
+                  marginTop: "15px"
+                }}
+              >
+
+                <p>
+                  <strong>Assign Staff:</strong>
+                </p>
+
+                <select
+                  value={
+                    selectedStaff[c.id] || ""
+                  }
+                  onChange={(e) =>
+                    setSelectedStaff({
+                      ...selectedStaff,
+                      [c.id]: e.target.value
+                    })
+                  }
+                >
+
+                  <option value="">
+                    Select Staff
+                  </option>
+
+                  {staffList.map((s) => (
+
+                    <option
+                      key={s.id}
+                      value={s.id}
+                    >
+                      {s.name} ({s.email})
+                    </option>
+
+                  ))}
+
+                </select>
+
+                <button
+                  onClick={() =>
+                    assignStaff(c.id)
+                  }
+                >
+                  Assign
+                </button>
+
+              </div>
+
               <select
 
                 value={c.status}
@@ -219,6 +509,10 @@ function AdminDashboard() {
 
                 <option value="RESOLVED">
                   RESOLVED
+                </option>
+
+                <option value="CLOSED">
+                  CLOSED
                 </option>
 
               </select>

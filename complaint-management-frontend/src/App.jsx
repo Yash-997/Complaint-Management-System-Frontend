@@ -16,6 +16,10 @@ import AdminLogin from "./pages/AdminLogin";
 
 import AdminDashboard from "./pages/AdminDashboard";
 
+import StaffLogin from "./pages/StaffLogin";
+
+import StaffDashboard from "./pages/StaffDashboard";
+
 function App() {
 
   return (
@@ -52,6 +56,16 @@ function App() {
         <Route
           path="/admin/dashboard"
           element={<AdminDashboard />}
+        />
+
+        <Route
+          path="/staff/login"
+          element={<StaffLogin />}
+        />
+
+        <Route
+          path="/staff/dashboard"
+          element={<StaffDashboard />}
         />
 
       </Routes>

@@ -25,6 +25,13 @@ const [editDescription, setEditDescription] =
 
 const [editPriority, setEditPriority] =
   useState("LOW");
+
+  const [feedbackData, setFeedbackData] =
+    useState({});
+
+  const [feedbackSubmitted, setFeedbackSubmitted] =
+    useState({});
+
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -117,6 +124,43 @@ const [editPriority, setEditPriority] =
     alert("Failed to update complaint");
   }
 };
+
+  const submitFeedback = async (id) => {
+
+    const data = feedbackData[id];
+
+    if (!data || !data.rating) {
+
+      alert("Please select a rating");
+
+      return;
+    }
+
+    try {
+
+      await api.post(
+        `/api/complaints/${id}/feedback`,
+        {
+          rating: parseInt(data.rating),
+          feedback: data.feedback || ""
+        }
+      );
+
+      setFeedbackSubmitted({
+        ...feedbackSubmitted,
+        [id]: true
+      });
+
+      fetchComplaints();
+
+    } catch (error) {
+
+      console.log(error);
+
+      alert("Failed to submit feedback");
+    }
+  };
+
   return (
 
     <div className="container">
@@ -260,6 +304,10 @@ const [editPriority, setEditPriority] =
 
                     ? "status-progress"
 
+                    : c.status === "CLOSED"
+
+                    ? "status-closed"
+
                     : "status-resolved"
                 }
               >
@@ -279,6 +327,155 @@ const [editPriority, setEditPriority] =
                 {c.priority}
 
               </p>
+
+              <p
+                style={{
+                  marginTop: "10px"
+                }}
+              >
+
+                <strong>Created:</strong>
+                {" "}
+
+                {
+                  new Date(c.createdAt)
+                    .toLocaleString()
+                }
+
+              </p>
+
+              {c.assignedStaff && (
+
+                <p
+                  style={{
+                    marginTop: "10px"
+                  }}
+                >
+
+                  <strong>Assigned Staff:</strong>
+                  {" "}
+                  {c.assignedStaff.name}
+
+                </p>
+
+              )}
+
+              {c.resolutionRemarks && (
+
+                <p
+                  style={{
+                    marginTop: "10px"
+                  }}
+                >
+
+                  <strong>Resolution Remarks:</strong>
+                  {" "}
+                  {c.resolutionRemarks}
+
+                </p>
+
+              )}
+
+              {c.status === "RESOLVED" &&
+                !c.rating &&
+                !feedbackSubmitted[c.id] && (
+
+                <div
+                  style={{
+                    marginTop: "15px"
+                  }}
+                >
+
+                  <p>
+                    <strong>Submit Feedback:</strong>
+                  </p>
+
+                  <select
+                    value={
+                      feedbackData[c.id]?.rating || ""
+                    }
+                    onChange={(e) =>
+                      setFeedbackData({
+                        ...feedbackData,
+                        [c.id]: {
+                          ...feedbackData[c.id],
+                          rating: e.target.value
+                        }
+                      })
+                    }
+                  >
+
+                    <option value="">
+                      Select Rating
+                    </option>
+
+                    <option value="1">1</option>
+
+                    <option value="2">2</option>
+
+                    <option value="3">3</option>
+
+                    <option value="4">4</option>
+
+                    <option value="5">5</option>
+
+                  </select>
+
+                  <textarea
+                    placeholder="Enter your feedback"
+                    value={
+                      feedbackData[c.id]?.feedback || ""
+                    }
+                    onChange={(e) =>
+                      setFeedbackData({
+                        ...feedbackData,
+                        [c.id]: {
+                          ...feedbackData[c.id],
+                          feedback: e.target.value
+                        }
+                      })
+                    }
+                  />
+
+                  <button
+                    onClick={() =>
+                      submitFeedback(c.id)
+                    }
+                  >
+                    Submit Feedback
+                  </button>
+
+                </div>
+
+              )}
+
+              {c.rating && (
+
+                <div
+                  style={{
+                    marginTop: "15px"
+                  }}
+                >
+
+                  <p>
+
+                    <strong>Rating:</strong>
+                    {" "}
+                    {c.rating} / 5
+
+                  </p>
+
+                  <p>
+
+                    <strong>Feedback:</strong>
+                    {" "}
+                    {c.feedback}
+
+                  </p>
+
+                </div>
+
+              )}
 
               <button
                 onClick={() =>

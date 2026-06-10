@@ -1,13 +1,12 @@
 import { useState } from "react";
 
 import {
-  useNavigate,
-  Link
+  useNavigate
 } from "react-router-dom";
 
 import api from "../services/api";
 
-function Login() {
+function StaffLogin() {
 
   const [email, setEmail] = useState("");
 
@@ -28,35 +27,31 @@ function Login() {
           password
         });
 
-      if(response.data.role === "ROLE_ADMIN") {
+      if (
+        response.data.role !==
+        "ROLE_STAFF"
+      ) {
 
-  alert("Please login from admin page");
+        alert("Not Staff");
 
-  return;
-}
+        return;
+      }
 
-if(response.data.role === "ROLE_STAFF") {
+      localStorage.setItem(
+        "token",
+        response.data.token
+      );
 
-  alert("Please login from staff page");
+      localStorage.setItem(
+        "role",
+        response.data.role
+      );
 
-  return;
-}
-
-localStorage.setItem(
-  "token",
-  response.data.token
-);
-
-localStorage.setItem(
-  "role",
-  response.data.role
-);
-
-navigate("/dashboard");
+      navigate("/staff/dashboard");
 
     } catch {
 
-      alert("Invalid Credentials");
+      alert("Login Failed");
     }
   };
 
@@ -66,13 +61,13 @@ navigate("/dashboard");
 
       <div className="card">
 
-        <h1>User Login</h1>
+        <h1>Staff Login</h1>
 
         <form onSubmit={handleLogin}>
 
           <input
             type="email"
-            placeholder="Enter Email"
+            placeholder="Email"
             onChange={(e) =>
               setEmail(e.target.value)
             }
@@ -80,7 +75,7 @@ navigate("/dashboard");
 
           <input
             type="password"
-            placeholder="Enter Password"
+            placeholder="Password"
             onChange={(e) =>
               setPassword(e.target.value)
             }
@@ -92,40 +87,10 @@ navigate("/dashboard");
 
         </form>
 
-        <p>
-
-          <Link to="/register">
-
-            Create New Account
-
-          </Link>
-
-        </p>
-
-        <p>
-
-          <Link to="/admin/login">
-
-            Admin Login
-
-          </Link>
-
-        </p>
-
-        <p>
-
-          <Link to="/staff/login">
-
-            Staff Login
-
-          </Link>
-
-        </p>
-
       </div>
 
     </div>
   );
 }
 
-export default Login;
+export default StaffLogin;
