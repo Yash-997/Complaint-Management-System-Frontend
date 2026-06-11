@@ -269,20 +269,22 @@ const [editPriority, setEditPriority] =
 
     <p>{c.description}</p>
 
-    <button
-      onClick={() => {
+    {c.status === "OPEN" && (
+  <button
+    onClick={() => {
 
-        setEditingId(c.id);
+      setEditingId(c.id);
 
-        setEditTitle(c.title);
+      setEditTitle(c.title);
 
-        setEditDescription(c.description);
+      setEditDescription(c.description);
 
-        setEditPriority(c.priority);
-      }}
-    >
-      Edit Complaint
-    </button>
+      setEditPriority(c.priority);
+    }}
+  >
+    Edit Complaint
+  </button>
+)}
 
   </div>
 }
@@ -376,7 +378,8 @@ const [editPriority, setEditPriority] =
 
               )}
 
-              {c.status === "RESOLVED" &&
+              {(c.status === "RESOLVED" ||
+                c.status === "CLOSED") &&
                 !c.rating &&
                 !feedbackSubmitted[c.id] && (
 
@@ -477,17 +480,19 @@ const [editPriority, setEditPriority] =
 
               )}
 
-              <button
-                onClick={() =>
-                  deleteComplaint(c.id)
-                }
-                style={{
-                  marginTop: "20px",
-                  background: "#dc2626"
-                }}
-              >
-                Delete Complaint
-              </button>
+              {c.status === "OPEN" && (
+  <button
+    onClick={() =>
+      deleteComplaint(c.id)
+    }
+    style={{
+      marginTop: "20px",
+      background: "#dc2626"
+    }}
+  >
+    Delete Complaint
+  </button>
+)}
 
             </div>
           ))
