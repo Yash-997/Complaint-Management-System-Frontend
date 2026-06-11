@@ -20,15 +20,15 @@
 
 | | Link |
 |---|---|
-| 🖥️ **Frontend** | [your-app.vercel.app](https://your-app.vercel.app) |
-| ⚙️ **Backend API** | [your-api.onrender.com](https://your-api.onrender.com) |
-| 📁 **Backend Repo** | [complaint-management-backend](https://github.com/yourusername/complaint-management-backend) |
+| 🖥️ **Frontend** | [your-app.vercel.app](https://complaint-management-system-fronten-self.vercel.app/) |
+| ⚙️ **Backend API** | [your-api.onrender.com](https://complaint-management-system-vium.onrender.com) |
+| 📁 **Backend Repo** | [complaint-management-backend](https://github.com/Yash-997/Complaint-Management-System) |
 
 ---
 
 ## 📌 Overview
 
-A fully responsive React frontend for a complaint management workflow — users can register, raise complaints, and track resolutions in real time.
+A fully responsive React frontend for a complaint management workflow users can register, raise complaints, and track resolutions in real time.
 
 Admins get a dedicated dashboard to manage, filter, and update complaint statuses. The app integrates with a **Spring Boot + PostgreSQL** backend via **Axios**, with **JWT-based protected routes** throughout.
 
@@ -41,10 +41,10 @@ Admins get a dedicated dashboard to manage, filter, and update complaint statuse
 | | Feature |
 |---|---|
 | 🔐 | JWT Authentication (login, register, token persistence) |
-| 🛡️ | Protected Routes — role-based page access |
+| 🛡️ | Protected Routes role-based page access |
 | 📝 | Complaint submission form with validation |
 | 📋 | Complaint history with live status tracking |
-| 🔄 | Admin dashboard — view, filter & update complaints |
+| 🔄 | Admin dashboard view, filter & update complaints |
 | 📱 | Fully responsive across desktop, tablet, mobile |
 | 🔔 | Toast notifications for all user actions |
 | ⚠️ | Global error handling via Axios interceptors |
@@ -163,10 +163,10 @@ User Action (Login / Submit Complaint)
 |------|-------------|
 | **Login** | JWT login with token stored in `localStorage`, redirect on success |
 | **Register** | User signup with form validation and auto-redirect to login |
-| **Dashboard** | Role-aware home screen — stats for users, full controls for admins |
-| **Create Complaint** | Validated form — category, description, priority, submission |
+| **Dashboard** | Role-aware home screen stats for users, full controls for admins |
+| **Create Complaint** | Validated form category, description, priority, submission |
 | **Complaint History** | Personal complaint list with status badges and timestamps |
-| **Admin Panel** | All complaints table — filter by status, update with one click |
+| **Admin Panel** | All complaints table filter by status, update with one click |
 
 ---
 
@@ -228,10 +228,10 @@ VITE_API_URL=https://your-backend-api.onrender.com
 
 - [ ] 🌙 Dark mode toggle
 - [ ] 🔔 Real-time notifications via WebSockets
-- [ ] 📊 Admin analytics — charts for complaint volume & resolution rates
+- [ ] 📊 Admin analytics charts for complaint volume & resolution rates
 - [ ] 📁 File/image attachment on complaints
 - [ ] 📲 PWA support for offline access
-- [ ] 🌍 i18n — multi-language support
+- [ ] 🌍 i18n multi-language support
 
 ---
 
@@ -243,8 +243,8 @@ VITE_API_URL=https://your-backend-api.onrender.com
 |---------------|----------------|
 | **Full Stack Integration** | Seamlessly connects React UI to a secured Spring Boot REST API |
 | **JWT Auth in React** | Token storage, Axios interceptors, auto-logout on expiry |
-| **Enterprise Workflow** | Multi-role system with scoped views — not a single-page CRUD demo |
-| **Component Architecture** | Reusable components, custom hooks, context API — structured for scale |
+| **Enterprise Workflow** | Multi-role system with scoped views not a single-page CRUD demo |
+| **Component Architecture** | Reusable components, custom hooks, context API structured for scale |
 | **Responsive Design** | Mobile-first with Tailwind, tested across breakpoints |
 | **Production Deployment** | Live on Vercel with env-secured API configuration |
 
@@ -252,8 +252,8 @@ VITE_API_URL=https://your-backend-api.onrender.com
 
 ## 👤 Author
 
-**Your Name**
-— [`GitHub`](https://github.com/yourusername) · [`LinkedIn`](https://linkedin.com/in/yourprofile)
+**Yash Dabhade**
+— [`GitHub`](https://github.com/Yash-997) · [`LinkedIn`](https://www.linkedin.com/in/yash-dabhade)
 
 <div align="center">
   <sub>⭐ Found this useful? A star goes a long way!</sub>
