@@ -113,21 +113,46 @@ Admins get a dedicated dashboard to manage, filter, and update complaint statuse
 
 ## 🗂️ Project Structure
 
-```
-src/
-├── components/        # Reusable UI components (Button, Card, Navbar, etc.)
-├── pages/             # Route-level page components
-├── layouts/           # Shared layout wrappers (AuthLayout, DashboardLayout)
-├── routes/            # Protected & public route definitions
-├── services/          # Axios API calls (authService, complaintService)
-├── context/           # AuthContext — global auth state
-├── hooks/             # Custom hooks (useAuth, useComplaints)
-├── utils/             # Token helpers, formatters, constants
-├── assets/            # Images, icons, static files
-└── App.jsx            # Root component with router setup
+```text
+complaint-management-frontend/
+├── public/
+├── src/
+│   ├── pages/
+│   │   ├── AdminDashboard.jsx
+│   │   ├── AdminLogin.jsx
+│   │   ├── CreateComplaint.jsx
+│   │   ├── DashBoard.jsx
+│   │   ├── Login.jsx
+│   │   ├── Register.jsx
+│   │   ├── StaffDashboard.jsx
+│   │   └── StaffLogin.jsx
+│   │
+│   ├── services/
+│   │   └── api.js
+│   │
+│   ├── App.jsx
+│   ├── main.jsx
+│   └── index.css
+│
+├── vercel.json
+├── vite.config.js
+├── package.json
+├── eslint.config.js
+└── README.md
 ```
 
----
+### 📂 Folder Overview
+
+| Folder/File | Purpose |
+|------------|---------|
+| `pages/` | Contains all application pages including Login, Registration, Dashboards, and Complaint Management screens |
+| `services/api.js` | Centralized Axios configuration and API communication layer |
+| `App.jsx` | Main application component and routing configuration |
+| `main.jsx` | React application entry point |
+| `index.css` | Global styles |
+| `public/` | Static assets |
+| `vercel.json` | Vercel deployment configuration |
+| `vite.config.js` | Vite build configuration |
 
 ## 🔄 Application Flow
 
